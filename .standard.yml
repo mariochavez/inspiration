@@ -1,0 +1,16 @@
+fix: false # default: false
+parallel: true # default: false
+format: progress # default: Standard::Formatter
+ruby_version: 3.3.3 # default: RUBY_VERSION
+default_ignores: false # default: true
+
+ignore: # default: []
+  - "node_modules/**/*"
+  - "db/migrate/**/*"
+  - "db/schema.rb"
+  - "bin/**/*"
+  - "Gemfile"
+  - "config/environments/**/*"
+  - "config/application.rb"
+  - "config/boot.rb"
+  - "config/puma.rb"

@@ -20,6 +20,8 @@ Bundler.require(*Rails.groups)
 
 module Inspiration
   class Application < Rails::Application
+    config.middleware.use Rack::Attack
+
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 8.0
 
@@ -33,7 +35,20 @@ module Inspiration
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
     #
-    # config.time_zone = "Central Time (US & Canada)"
+    config.time_zone = "Guadalajara"
     # config.eager_load_paths << Rails.root.join("extras")
+    #
+    # Configure your locales.
+    config.i18n.available_locales = :es
+    config.i18n.default_locale = :es
+
+    # Configure a proxy for Active Storage if need it. Also, don't forget to set public: true in config/storage.yml file.
+    # config.active_storage.resolve_model_to_route = :rails_storage_proxy
+
+    config.action_view.field_error_proc = proc { |html_tag, instance| html_tag.html_safe }
+
+    # unless Rails.env.test?
+    #   config.active_job.queue_adapter = :solid_queue
+    # end
   end
 end

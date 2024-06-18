@@ -1,0 +1,20 @@
+:root {
+  --color-base: 15 23 42;
+  --color-accented: 244 63 94;
+  --color-accented-hover: 190 18 60;
+  --color-inverted: 255 255 255;
+  --color-muted: 55 65 81;
+  --color-dimmed: 75 85 99;
+  --color-error: 220 38 38;
+  --color-error-hover: 185 28 28;
+  --color-alternate: 249 115 22;
+  --color-alternate-1: 230 242 251;
+  --color-alternate-2: 2 63 109;
+
+  --color-border-base: 209 213 219;
+  --color-border-accented: 244 63 94;
+}
+
+body {
+  @apply font-sans antialiased;
+}
