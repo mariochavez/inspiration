@@ -221,6 +221,7 @@ GEM
       actionpack (>= 3.2.0)
     mini_magick (4.13.1)
     mini_mime (1.1.5)
+    mini_portile2 (2.8.7)
     minitest (5.23.1)
     msgpack (1.7.2)
     mutex_m (0.2.0)
@@ -319,16 +320,8 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
-    sqlite3 (2.0.2-aarch64-linux-gnu)
-    sqlite3 (2.0.2-aarch64-linux-musl)
-    sqlite3 (2.0.2-arm-linux-gnu)
-    sqlite3 (2.0.2-arm-linux-musl)
-    sqlite3 (2.0.2-arm64-darwin)
-    sqlite3 (2.0.2-x86-linux-gnu)
-    sqlite3 (2.0.2-x86-linux-musl)
-    sqlite3 (2.0.2-x86_64-darwin)
-    sqlite3 (2.0.2-x86_64-linux-gnu)
-    sqlite3 (2.0.2-x86_64-linux-musl)
+    sqlite3 (2.0.2)
+      mini_portile2 (~> 2.8.0)
     sshkit (1.22.2)
       base64
       mutex_m
@@ -424,7 +417,7 @@ DEPENDENCIES
   rails!
   rails-i18n (~> 7.0)
   selenium-webdriver
-  sqlite3 (>= 1.4)
+  sqlite3 (>= 2.0)
   standard
   stimulus-rails
   tailwindcss-rails

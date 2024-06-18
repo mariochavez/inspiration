@@ -5,7 +5,7 @@ gem "rails", github: "rails/rails", branch: "main"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 # Use sqlite3 as the database for Active Record
-gem "sqlite3", ">= 1.4"
+gem "sqlite3", ">= 2.0", force_ruby_platform: true
 gem "activerecord-enhancedsqlite3-adapter", "~> 0.8.0"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
