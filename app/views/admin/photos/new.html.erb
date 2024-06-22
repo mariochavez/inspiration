@@ -1,0 +1,68 @@
+<div class="w-full">
+  <section aria-labelledby="photos-heading" class="bg-white">
+    <div class="-ml-4 -mt-2 flex flex-wrap items-center justify-between sm:flex-nowrap">
+      <div class="px-4 py-16 sm:px-6 lg:px-8">
+        <h1 id="photos-heading" class="text-3xl font-bold tracking-tight text-gray-900">New inspiration photo</h1>
+        <p class="mt-4 max-w-xl text-sm text-gray-700">Upload curated photo to the list of inspirational photos.</p>
+      </div>
+
+      <div class="ml-4 mt-2 flex-shrink-0">
+        <%= link_to t(".new_photo"), new_admin_photo_path, class: "button-accented" %>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white">
+    <%= form_with model: [:admin, @photo], class: "space-y-12 lg:max-w-3xl mx-auto" do |form| %>
+      <div class="border-b border-gray-900/10 pb-12">
+        <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+
+          <div class="sm:col-span-6">
+            <%= form.label :author, class: "label" %>
+            <div class="mt-2">
+              <%= form.text_field :author, autocomplete: :off, maxlength: 60, placeholder: "Bryan Schutmaat", class: "w-full input text-lg" %>
+            </div>
+          </div>
+
+          <div class="sm:col-span-6">
+            <%= form.label :project, class: "label" %>
+            <div class="mt-2">
+              <%= form.text_field :project, autocomplete: :off, maxlength: 80, placeholder: "County Road", class: "w-full input" %>
+            </div>
+          </div>
+
+          <div class="sm:col-span-6">
+            <%= form.label :description, class: "label" %>
+            <div class="mt-2 flex flex-wrap-reverse">
+              <%= form.rich_text_area :description, autocomplete: :off, placeholder: "County Road", class: "w-full input richtext" %>
+            </div>
+          </div>
+
+          <div class="col-span-full" data-controller="file" data-file-max-size-value="2621440">
+            <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+              <div class="container text-center" data-file-target="container">
+
+                <div class="placeholder" data-file-target="placeholder">
+                  <svg class="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />
+                  </svg>
+                  <div class="mt-4 flex text-sm leading-6 text-gray-600">
+                    <button type="button" class="mx-auto button-accented" data-action="file#select">
+                      <span class="cursor-pointer">Upload a file</label>
+                    </button>
+                    <%= form.hidden_field :image, value: @photo.image.signed_id if @photo.image.attached? %>
+                    <%= form.file_field :image, direct_upload: true, class: "hidden", data: {'file-target': 'fileInput'} %>
+                  </div>
+                  <p class="text-xs leading-5 text-gray-600 mt-2">PNG, JPG up to 2MB</p>
+                </div>
+
+                <img data-file-target="preview" class="preview" src="" />
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </section>
+</div>

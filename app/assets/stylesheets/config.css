@@ -18,3 +18,51 @@
 body {
   @apply font-sans antialiased;
 }
+
+.label {
+  @apply block text-sm font-medium leading-6 text-gray-900;
+}
+
+.input {
+  @apply block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6;
+}
+
+.button-accented {
+ @apply relative inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600;
+}
+
+.richtext {
+  @apply h-52;
+}
+
+.trix-button-group--file-tools {
+  @apply !hidden;
+}
+
+.trix-button-group, .trix-button {
+  @apply !border-none;
+}
+
+.trix-button {
+  @apply hover:bg-gray-100 rounded-sm;
+}
+
+.trix-active {
+  @apply !bg-gray-100;
+}
+
+trix-toolbar {
+  @apply mt-2;
+}
+
+[data-controller="file"] .container .preview {
+  @apply hidden;
+}
+
+[data-controller="file"] .container[data-image-loaded="true"] .placeholder {
+  @apply hidden;
+}
+
+[data-controller="file"] .container[data-image-loaded="true"] .preview {
+  @apply block;
+}
