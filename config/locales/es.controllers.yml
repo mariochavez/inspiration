@@ -1,0 +1,9 @@
+es:
+  flash:
+    photos:
+      create:
+        notice: La fotografía fue creada con éxito
+        alert: La fotografía no pudo ser creada. Revise los mensajes del formulario e intente de nuevo
+      update:
+        notice: La fotografía fue actualizada con éxito
+        alert: La fotografía no pudo ser actualizada. Revise los mensajes del formulario e intente de nuevo

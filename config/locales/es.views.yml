@@ -1,0 +1,22 @@
+es:
+  back: Regresar
+  admin:
+    photos:
+      index:
+        title: Fotografías inspiradoras
+        description: Lista curada de fotografías para inspiración.
+        new_photo: Nueva fotografía
+        no_photos: No hay fotografías
+        add_one: Inicia creando una nueva fotografía.
+      new:
+        title: Nueva fotografía inspiradora
+        description: Cargue una fotografía a la lista curada de fotografías para inspiración.
+        save_photo: Crear fotografía
+      edit:
+        title: Modificar fotografía inspiradora
+        description: Actualice la fotografía curada en la lista de fotografías inspiradoras.
+        save_photo: Actualizar fotografía
+      form:
+        replace_file: Reemplazar fotografía
+        upload_file: Cargar fotografía
+        upload_file_message: PNG, JPG de hasta 2.5MB

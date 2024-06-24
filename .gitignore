@@ -38,3 +38,6 @@
 !/app/assets/builds/.keep
 
 config/database.yml
+
+/.sqlpkg/*
+!/.sqlpkg/.keep

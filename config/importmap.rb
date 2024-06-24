@@ -9,4 +9,6 @@ pin "trix"
 pin "@rails/activestorage", to: "activestorage.esm.js"
 pin "@rails/actiontext", to: "actiontext.esm.js"
 
+pin "el-transition" # @0.0.7
+
 pin_all_from "app/javascript/controllers", under: "controllers"

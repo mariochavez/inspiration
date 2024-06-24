@@ -1,0 +1,20 @@
+en:
+  activerecord:
+    model:
+      photo:
+        one: Photograph
+        other: Photographs
+    attributes:
+      photo:
+        author: Author
+        project: Project
+        url: Website
+        description: Description
+        image: Photograph
+
+  errors:
+    attributes:
+      author:
+        blank: Author name is requiered
+      image:
+        blank: Attach a photograph

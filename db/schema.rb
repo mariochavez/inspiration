@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_06_18_192201) do
+ActiveRecord::Schema[8.0].define(version: 2024_06_19_014149) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -47,6 +47,18 @@ ActiveRecord::Schema[8.0].define(version: 2024_06_18_192201) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "photos", force: :cascade do |t|
+    t.string "author", null: false
+    t.string "project"
+    t.string "url"
+    t.string "ulid", default: -> { "ulid()" }
+    t.datetime "published_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["published_at"], name: "index_photos_on_published_at"
+    t.index ["ulid"], name: "index_photos_on_ulid", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

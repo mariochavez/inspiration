@@ -1,0 +1,9 @@
+en:
+  flash:
+    photos:
+      create:
+        notice: The photo was successfully created
+        alert: The photo could not be created. Review form messages and try again
+      update:
+        notice: The photo was successfully updated
+        alert: The photo could not be updated. Review form messages and try again
