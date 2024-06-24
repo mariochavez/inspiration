@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", :as => :pwa_manifest
 
   namespace :admin do
-    resources :photos, except: [:destroy]
+    resources :photos, except: [:show, :destroy]
   end
 
   # Defines the root path route ("/")

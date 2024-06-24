@@ -72,3 +72,7 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "sqlpkg", "~> 0.2.3"
+
+gem "pagy", "~> 8.4"

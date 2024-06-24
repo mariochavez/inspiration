@@ -8,6 +8,8 @@ default: &default
   adapter: sqlite3
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
+  extensions:
+    - asg017/ulid
 
 development:
   <<: *default
@@ -19,7 +21,6 @@ development:
 test:
   <<: *default
   database: storage/test.sqlite3
-
 
 # Store production database in the storage/ directory, which by default
 # is mounted as a persistent Docker volume in config/deploy.yml.

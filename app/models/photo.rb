@@ -8,4 +8,17 @@ class Photo < ApplicationRecord
   end
 
   validates :author, :image, presence: true
+
+  def published?
+    published_at.present?
+  end
+
+  def landscape?
+    return true if !image.attached?
+    image.blob.metadata[:width] > image.blob.metadata[:height]
+  end
+
+  def to_param
+    ulid
+  end
 end

@@ -52,10 +52,13 @@ ActiveRecord::Schema[8.0].define(version: 2024_06_19_014149) do
   create_table "photos", force: :cascade do |t|
     t.string "author", null: false
     t.string "project"
+    t.string "url"
+    t.string "ulid", default: -> { "ulid()" }
     t.datetime "published_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["published_at"], name: "index_photos_on_published_at"
+    t.index ["ulid"], name: "index_photos_on_ulid", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

@@ -1,0 +1,21 @@
+en:
+  admin:
+    photos:
+      index:
+        title: Inspiration photographs
+        description: Curated list of inspirational photographs.
+        new_photo: New photograph
+        no_photos: There are no photographs
+        add_one: Get started by creating a new photograph.
+      new:
+        title: New inspiration photograph
+        description: Upload curated photography to the list of inspirational photographs.
+        save_photo: Create photograph
+      edit:
+        title: Edit inspiration photograph
+        description: Update curated photograph from the list of inspirational photographs.
+        save_photo: Update photograph
+      form:
+        replace_file: Replace photograph
+        upload_file: Upload a photograph
+        upload_file_message: PNG, JPG up to 2.5MB

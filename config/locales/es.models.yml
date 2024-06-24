@@ -1,0 +1,20 @@
+es:
+  activerecord:
+    model:
+      photo:
+        one: Fotografía
+        other: Fotografías
+    attributes:
+      photo:
+        author: Autor
+        project: Proyecto
+        url: Sitio web
+        description: Descripción
+        image: Fotografía
+
+  errors:
+    attributes:
+      author:
+        blank: El nombre del author es requerido
+      image:
+        blank: Es necesario adjuntar la fotografía

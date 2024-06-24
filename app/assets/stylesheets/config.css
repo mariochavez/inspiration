@@ -27,8 +27,24 @@ body {
   @apply block rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6;
 }
 
+.error .input {
+  @apply ring-skin-error focus:ring-skin-error;
+}
+
+.help {
+  @apply mt-1 text-xs leading-5 text-gray-600;
+}
+
+.help-error {
+  @apply text-skin-error;
+}
+
+.button {
+  @apply relative inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-600 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-200;
+}
+
 .button-accented {
- @apply relative inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600;
+  @apply relative inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600;
 }
 
 .richtext {
@@ -39,7 +55,8 @@ body {
   @apply !hidden;
 }
 
-.trix-button-group, .trix-button {
+.trix-button-group,
+.trix-button {
   @apply !border-none;
 }
 
@@ -55,7 +72,8 @@ trix-toolbar {
   @apply mt-2;
 }
 
-[data-controller="file"] .container .preview {
+[data-controller="file"] .container .preview,
+[data-controller="file"] .container .replace {
   @apply hidden;
 }
 
@@ -65,4 +83,48 @@ trix-toolbar {
 
 [data-controller="file"] .container[data-image-loaded="true"] .preview {
   @apply block;
+}
+
+[data-controller="file"] .container[data-image-loaded="true"] .replace {
+  @apply inline-flex;
+}
+
+[data-controller="file"] .container .help-error {
+  @apply hidden;
+}
+
+[data-controller="file"][data-image-error="true"] .container .help-error {
+  @apply block;
+}
+
+.alert {
+  @apply rounded-md p-4 bg-red-50;
+}
+
+.alert .alert-icon {
+  @apply w-5 h-5 text-red-400;
+}
+
+.alert .alert-message {
+  @apply text-sm font-medium text-red-800;
+}
+
+.alert .alert-dismiss {
+  @apply inline-flex rounded-md p-1.5 focus:outline-none focus:ring-2 focus:ring-offset-2 bg-red-50 text-red-500 hover:bg-red-100 focus:ring-red-600 focus:ring-offset-red-50;
+}
+
+.alert.alert-notice {
+  @apply bg-green-50;
+}
+
+.alert.alert-notice .alert-icon {
+  @apply text-green-400;
+}
+
+.alert.alert-notice .alert-message {
+  @apply text-green-800;
+}
+
+.alert.alert-notice .alert-dismiss {
+  @apply bg-green-50 text-green-500 hover:bg-green-100 focus:ring-green-600 focus:ring-offset-green-50;
 }
