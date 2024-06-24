@@ -1,7 +1,7 @@
 module Admin
   class PhotosController < ApplicationController
     def index
-      @pagy, @photos = pagy(Photo.order(created_at: :desc))
+      @pagy, @photos = pagy(Photo.with_attached_image.includes(image_attachment: :blob).order(created_at: :desc))
     end
 
     def new
