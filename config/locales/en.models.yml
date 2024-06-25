@@ -4,6 +4,9 @@ en:
       photo:
         one: Photograph
         other: Photographs
+      user:
+        one: User
+        other: Users
     attributes:
       photo:
         author: Author
@@ -11,6 +14,9 @@ en:
         url: Website
         description: Description
         image: Photograph
+      user:
+        email: Email
+        password: Password
 
   errors:
     attributes:
@@ -18,3 +24,7 @@ en:
         blank: Author name is requiered
       image:
         blank: Attach a photograph
+      email:
+        blank: Email is required
+      password:
+        blank: Password is required

@@ -7,3 +7,7 @@ en:
       update:
         notice: The photo was successfully updated
         alert: The photo could not be updated. Review form messages and try again
+  sessions:
+    create:
+      notice: Welcome back!
+      alert: Invalid email or password

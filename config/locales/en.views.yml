@@ -19,3 +19,11 @@ en:
         replace_file: Replace photograph
         upload_file: Upload a photograph
         upload_file_message: PNG, JPG up to 2.5MB
+  sessions:
+    new:
+      title: New session
+      description: Enter your credentials below to start a session
+      sign_in: Sign in
+  placeholders:
+    email: user@mail.com
+    password: Your current password

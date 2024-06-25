@@ -20,3 +20,11 @@ es:
         replace_file: Reemplazar fotografía
         upload_file: Cargar fotografía
         upload_file_message: PNG, JPG de hasta 2.5MB
+  sessions:
+    new:
+      title: Nueva sesión
+      description: Use sus credenciales para inicia sesión
+      sign_in: Iniciar sesión
+  placeholders:
+    email: user@mail.com
+    password: Su contraseña actual

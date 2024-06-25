@@ -7,3 +7,7 @@ es:
       update:
         notice: La fotografía fue actualizada con éxito
         alert: La fotografía no pudo ser actualizada. Revise los mensajes del formulario e intente de nuevo
+  sessions:
+    create:
+      notice: Bienvenido de regreso
+      alert: Correo electrónico o contraseña inválida
