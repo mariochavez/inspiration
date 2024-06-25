@@ -9,9 +9,12 @@ Rails.application.routes.draw do
   get "service-worker" => "rails/pwa#service_worker", :as => :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", :as => :pwa_manifest
 
+  resource :sessions, only: [:new, :create, :destroy]
   namespace :admin do
     resources :photos, except: [:show, :destroy]
   end
+
+  get "/admin" => "admin/photos#index"
 
   # Defines the root path route ("/")
   root "home#index"

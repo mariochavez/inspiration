@@ -1,0 +1,23 @@
+<div class="lg:p-8">
+  <div class="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
+    <div class="space-y-2 text-center">
+      <h1 class="text-2xl font-semibold tracking-tight"><%= t(".title") %></h1>
+      <p class="text-sm text-muted-foreground"><%= t(".description") %></p>
+    </div>
+    <%= form_with(url: sessions_path, method: :post) do |f| %>
+      <div class="grid gap-2">
+        <div class="mt-1">
+          <%= f.label :email, class: "label sr-only" %>
+          <%= f.email_field :email, required: true, class: "input w-full", maxlength: 60, placeholder: t("placeholders.email") %>
+        </div>
+
+        <div class="mt-1">
+          <%= f.label :password, class: "label sr-only" %>
+          <%= f.password_field :password, require: true, class: "input w-full", maxlength: 25, placeholder: t("placeholders.password") %>
+        </div>
+
+         <%= f.submit t(".sign_in"), class: "button button-accented w-full inline-flex items-center justify-center mt-2" %>
+      </div>
+    <% end %>
+  </div>
+</div>
