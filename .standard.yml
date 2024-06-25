@@ -14,3 +14,4 @@ ignore: # default: []
   - "config/application.rb"
   - "config/boot.rb"
   - "config/puma.rb"
+  - "config/initializers/pagy.rb"
