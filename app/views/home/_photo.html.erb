@@ -1,0 +1,13 @@
+<%# locals: (photo:, index:) -%>
+
+<%= link_to photo_path(photo), id: dom_id(photo) do %>
+  <%= image_tag photo.image.variant(:page), alt: photo.author, 
+    loading: index >= 9 ? 'lazy' : '', style: "sview-transition-name: #{dom_id(photo)}", 
+    class: "w-[900px] h-auto sm:max-h-[900px] sm:max-w-full"  %>
+<% end %>
+<div class="p-2">
+  <h2 class="text-base font-bold"><%= photo.author %></h2>
+  <% if photo.project.present? %>
+    <p class="text-gray-500"><%= photo.project %></p>
+  <% end %>
+</div>

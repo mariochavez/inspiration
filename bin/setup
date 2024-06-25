@@ -14,7 +14,6 @@ FileUtils.chdir APP_ROOT do
   # Add necessary setup steps to this file.
 
   puts "== Installing dependencies =="
-  system! "gem install bundler --conservative"
   system("bundle check") || system!("bundle install")
 
   puts "== Installing SQLite extensions =="
@@ -35,8 +34,4 @@ FileUtils.chdir APP_ROOT do
   if File.exist?(".overmind.sock")
     system! "overmind restart"
   end
-
-  # puts "\n== Configuring puma-dev =="
-  # system "ln -nfs #{APP_ROOT} ~/.puma-dev/#{APP_NAME}"
-  # system "curl -Is https://#{APP_NAME}.test/up | head -n 1"
 end

@@ -1,31 +1,22 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
 en:
-  hello: "Hello world"
+  name: heroImage
+  title: "Inspirational Photography Collection :: heroImage"
+  description: Explore a curated collection of inspirational photography, personally selected by documentary photographer Mario Alberto Chávez. Discover diverse photographic projects, their creators, and the stories behind the images.
+  keywords: photography, inspiration, documentary photography, photo projects,visual storytelling
+  about_1: >
+    This website is a personal project created to share photography that inspires me. As a documentary photographer, I find immense value in exploring and revisiting works that resonate with my artistic vision and push the boundaries of visual storytelling.
+  about_2: >
+    Here, you'll find a carefully curated collection of photographs from various artists and projects. For each piece, I share information about the author, their website (when available), the specific project, and a description of the work. This platform serves as both a source of inspiration and a digital archive of impactful imagery.
+  about_3: >
+    It's important to note that this website is a non-profit endeavor. Its primary purpose is to celebrate and share remarkable photography. If you are a featured photographer and wish to have your work removed from this site, please contact me at mario@f64.io, and I will promptly address your request.
+  about_4: >
+    Through this website, I aim to share my passion for photography and create a space for reflection, inspiration, and appreciation of the diverse voices in the photographic community.
+  about_me: >
+    More information about Mario Alberto Chávez, the photographer behind this website, can be found on his website at
+  copyright: >
+    All images on this website belong to their respective owners.
+  copyright_notice: >
+    Website Copyright © 2024 Mario Alberto Chávez
+  back: Back
+  top: Top
+  author: Mario Alberto Chávez

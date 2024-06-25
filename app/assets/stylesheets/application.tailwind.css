@@ -1,6 +1,7 @@
 @import 'tailwindcss/base';
 
 @import 'config.css';
+@import 'transitions.css';
 
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
@@ -13,6 +14,6 @@
   }
 }
 
-*/ 
+*/
 @import 'trix.css';
 @import 'actiontext.css';
