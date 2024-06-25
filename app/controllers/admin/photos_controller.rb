@@ -1,5 +1,7 @@
 module Admin
   class PhotosController < ApplicationController
+    before_action :authenticate_user!
+
     def index
       @pagy, @photos = pagy(Photo.with_attached_image.includes(image_attachment: :blob).order(created_at: :desc))
     end

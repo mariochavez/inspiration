@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= display_meta_tags site: content_for(:title) || "Inspiration" %>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+    <%= turbo_refreshes_with method: :morph, scroll: :preserve %>
+  </head>
+
+  <body>
+    <%= render partial: "alert" %>
+
+    <main class="overflow-hidden">
+      <div class="relative h-lvh grid flex-col items-center justify-center px-8 sm:grid lg:max-w-none lg:grid-cols-2 lg:px-0">
+        <div class="relative hidden h-full flex-col bg-muted p-10 text-white lg:flex">
+          <div class="absolute inset-0 bg-zinc-900"></div>
+          <div class="relative z-20 flex items-center text-lg font-medium">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 h-6 w-6">
+              <path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3"></path>
+            </svg>
+            HeroImage
+          </div>
+          <div class="relative z-20 mt-auto">
+            <blockquote class="space-y-2">
+              <p class="text-lg">“Your own photography is never enough. Every photographer who has lasted has depended on other peoples pictures too – photographs that may be public or private, serious or funny but that carry with them a reminder of community.”</p>
+              <footer class="text-sm">Robert Adams</footer>
+            </blockquote>
+          </div>
+        </div>
+        <%= yield %>
+      </div>
+    </main>
+  </body>
+</html>

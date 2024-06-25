@@ -1,7 +1,7 @@
 <%- message = flash.alert || flash.notice -%>
 <% if message.present? %>
   <%- notice = flash.notice.present? -%>
-  <div class="hidden fixed inset-0" data-controller="alert"
+  <div class="hidden fixed inset-0 z-20" data-controller="alert"
        data-transition-enter="transition ease-in duration-100"
        data-transition-enter-start="transform opacity-0 translate-y-[-1/2] scale-95"
        data-transition-enter-end="transform opacity-100 translate-y-0 scale-100"
