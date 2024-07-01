@@ -75,4 +75,4 @@ end
 
 gem "sqlpkg", "~> 0.2.3"
 
-gem "pagy", "~> 8.4"
+gem "pagy", "~> 8.6"
