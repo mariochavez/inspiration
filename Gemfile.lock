@@ -305,7 +305,7 @@ GEM
     ruby-progressbar (1.13.0)
     ruby-vips (2.2.1)
       ffi (~> 1.12)
-    sqlite3 (2.0.2)
+    sqlite3 (2.0.3)
       mini_portile2 (~> 2.8.0)
     sqlpkg (0.2.3.1)
     sqlpkg (0.2.3.1-arm64-darwin)
