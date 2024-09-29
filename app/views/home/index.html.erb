@@ -1,12 +1,46 @@
-<div class="bg-white">
-  <div class="px-6 py-24 sm:px-6 sm:py-32 lg:px-8">
-    <div class="mx-auto max-w-2xl text-center">
-      <h2 class="text-3xl font-bold tracking-tight text-skin-base sm:text-4xl"><span class="text-skin-accented">Boost your productivity.</span><br>Start a Rails app today.</h2>
-      <p class="mx-auto mt-6 max-w-xl text-lg leading-8 text-skin-muted">Enjoy the Ruby language and the productivity that comes with it when building a Ruby on Rails web applications.</p>
-      <div class="mt-10 flex items-center justify-center gap-x-6">
-        <a href="https://railsenespanol.co" class="rounded-md bg-skin-accented px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-accented-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Get started</a>
-        <a href="https://rubyonrails.org" class="text-sm font-semibold leading-6 text-skin-base">Learn more <span aria-hidden="true">→</span></a>
-      </div>
+<header class="bg-white/80 sm:bg-transparent sticky top-0">
+  <nav class="mx-auto flex max-w-7xl items-center justify-between p-2 px-4 sm:p-1 sm:pt-4" aria-label="Global">
+    <div class="flex lg:flex-1 text-gray-900">
+      <%= link_to root_path, class: "text-gray-900 hover:text-gray-700" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 h-6 w-6">
+          <path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3"></path>
+        </svg>
+      <% end %>
+
+      <%= link_to t("name"), about_path, class: "text-gray-900 hover:text-gray-700" %>
     </div>
-  </div>
-</div>
+
+    <div class="hidden lg:flex lg:gap-x-12">
+    </div>
+
+    <div class="flex flex-1 justify-end">
+      <%= link_to t("top"), "#top", class: "text-gray-900 hover:text-gray-700" %>
+    </div>
+
+  </nav>
+</header>
+
+<section class="bg-white sm:max-w-4xl mx-auto mt-8" id="top">
+  <div class="grid grid-cols-1 md:grid-cols-6 gap-32">
+    <%- left = Date.today.day % 2 == 0 -%>
+    <% @photos.each_with_index do |photo, index| %>
+      <%- portrait = photo.image.metadata[:width] < photo.image.metadata[:height] -%>
+      <% if portrait & left %>
+        <div class="col-span-1 md:col-span-4">
+          <%= render partial: 'photo', locals: { photo: photo, index: index } %>
+        </div>
+        <div class="hidden md:block">
+        </div>
+      <% elsif portrait & !left %>
+        <div class="hidden md:block">
+        </div>
+        <div class="col-span-1 md:col-span-4">
+          <%= render partial: 'photo', locals: { photo: photo, index: index } %>
+        </div>
+      <% else %>
+        <div class="col-span-1 md:col-span-6">
+          <%= render partial: 'photo', locals: { photo: photo, index: index } %>
+        </div>
+      <% end %>
+    <% end %>
+</section>

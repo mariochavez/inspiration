@@ -1,13 +1,15 @@
+<% require "dotenv"; Dotenv.load(".env") %>
+
 # Name of your application. Used to uniquely configure containers.
 service: inspiration
 
 # Name of the container image.
-image: your-user/inspiration
+image: mariochavez/inspiration
 
 # Deploy to these servers.
 servers:
   web:
-    - 192.168.0.1
+    - 192.168.1.128
   # job:
   #   hosts:
   #     - 192.168.0.1
@@ -17,7 +19,8 @@ servers:
 registry:
   # Specify the registry server, if you're not using Docker Hub
   # server: registry.digitalocean.com / ghcr.io / ...
-  username: your-user
+  server: ghcr.io
+  username: <%= ENV.fetch("REGISTRY_USERNAME") %>
 
   # Always use an access token rather than real password when possible.
   password:
@@ -28,15 +31,14 @@ registry:
 env:
   secret:
     - RAILS_MASTER_KEY
-  # clear:
+  clear:
+    HOST: heroimage.co
   #   DB_HOST: 192.168.0.2
-
 
 # Use a persistent storage volume for sqlite database files and local Active Storage files.
 # Recommended to change this to a mounted volume path that is backed up off server.
 volumes:
-  - "inspiration_storage:/rails/storage"
-
+  - "/app/inspiration:/rails/storage"
 
 # Bridge fingerprinted assets, like JS and CSS, between versions to avoid
 # hitting 404 on in-flight requests. Combines all files from new and old
@@ -44,12 +46,22 @@ volumes:
 asset_path: /rails/public/assets
 
 # Use a different ssh user than root
-# ssh:
-#   user: app
+ssh:
+  user: <%= ENV.fetch("SSH_USER") %>
+  port: <%= ENV.fetch("SSH_PORT") %>
 
 # Configure builder setup (defaults to multi-arch images).
-# builder:
-#   # Build same-arch image locally (use for x86->x86)
+builder:
+  arch: amd64
+
+proxy:
+  healthcheck:
+    path: /up
+    interval: 2
+    timeout: 2
+  app_port: 3200
+  host: heroimage.co
+# Build same-arch image locally (use for x86->x86)
 #   multiarch: false
 #
 #   # Build diff-arch image via remote server

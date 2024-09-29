@@ -1,0 +1,36 @@
+<header class="md:bg-transparent sticky top-0">
+  <nav class="mx-auto flex max-w-7xl items-center justify-between p-1 pt-4" aria-label="Global">
+    <div class="flex flex-1">
+      <%= link_to t("back"), root_path, class: "text-gray-900 hover:text-gray-700", data: { back: true} %>
+    </div>
+
+    <div class="hidden lg:flex lg:gap-x-12">
+    </div>
+
+    <div class="flex lg:flex-1 text-gray-900 justify-end">
+      <%= link_to root_path, class: "text-gray-900 hover:text-gray-700" do %>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mr-2 h-6 w-6">
+          <path d="M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3"></path>
+        </svg>
+      <% end %>
+
+      <%= link_to t("name"), about_path, class: "text-gray-900 hover:text-gray-700" %>
+    </div>
+  </nav>
+</header>
+
+<section class="bg-white max-w-4xl mx-auto mt-8">
+  <%= image_tag @photo.image.variant(:page), alt: @photo.author, class: "w-[900px] h-auto sm:max-h-[700px] sm: w-auto mx-auto", style: "sview-transition-name: #{dom_id(@photo)}" %>
+  <div class="px-2 py-4 mb-6">
+    <h2 class="text-base font-bold"><%= @photo.author %></h2>
+    <% if @photo.project.present? %>
+      <p class="text-gray-500"><%= @photo.project %></p>
+      <%= link_to @photo.url, "#{@photo.url}?utm_source=#{request.host}", class: "text-gray-500 hover:text-gray-700", target: "_blank" %>
+      <% if @photo.description.present? %>
+        <div class="mt-4 text-sm text-gray-700">
+          <%= @photo.description %>
+        </div
+      <% end %>
+    <% end %>
+  </div>
+</section>

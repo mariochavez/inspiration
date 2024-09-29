@@ -7,13 +7,13 @@
 # Ignore bundler config.
 /.bundle
 
-# Ignore all environment files (except templates).
+# Ignore all environment files.
 /.env*
-!/.env*.erb
 
 # Ignore all default key files.
 /config/master.key
 /config/credentials/*.key
+/config/registry.key
 
 # Ignore all logfiles and tempfiles.
 /log/*

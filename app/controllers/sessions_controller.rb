@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  rate_limit to: 4, within: 1.minute
+
   layout "security"
 
   def new
