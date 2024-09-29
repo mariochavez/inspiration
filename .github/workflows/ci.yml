@@ -75,6 +75,9 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      - name: Install sqlite3 extension
+        run: bundle exec sqlpkg install
+
       - name: Run tests
         env:
           RAILS_ENV: test
