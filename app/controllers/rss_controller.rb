@@ -1,4 +1,6 @@
 class RssController < ApplicationController
+  allow_unauthenticated_access
+
   def index
     @photos = Photo.published
       .with_rich_text_description.with_attached_image

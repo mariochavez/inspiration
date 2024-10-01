@@ -6,4 +6,5 @@ publish_photo:
   class: PublishPhotoJob
   queue: default
   args: []
-  schedule: "0 */2 9-17 * *"
+  schedule: every 15 minutes
+  priority: 1

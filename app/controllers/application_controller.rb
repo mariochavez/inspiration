@@ -2,10 +2,16 @@ class ApplicationController < ActionController::Base
   include Pagy::Backend
   include SwitchLocale
 
+  before_action :authenticate_user!
+
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
   # allow_browser versions: :modern
 
-  private
+  def self.allow_unauthenticated_access(**)
+    skip_before_action(:authenticate_user!, **)
+  end
+
+  protected
 
   def authenticate_user!
     redirect_to new_sessions_path unless current_user
@@ -20,6 +26,8 @@ class ApplicationController < ActionController::Base
   end
 
   helper_method :current_user, :user_signed_in?
+
+  private
 
   def authenticate_from_session
     User.find_by(id: session[:user_id])
