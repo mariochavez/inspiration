@@ -178,6 +178,12 @@ GEM
     mini_mime (1.1.5)
     mini_portile2 (2.8.7)
     minitest (5.25.1)
+    mission_control-jobs (0.3.1)
+      importmap-rails
+      irb (~> 1.13)
+      rails (>= 7.1)
+      stimulus-rails
+      turbo-rails
     msgpack (1.7.2)
     net-imap (0.4.16)
       date
@@ -408,6 +414,7 @@ DEPENDENCIES
   kamal (>= 2.0.0.rc2)
   letter_opener
   meta-tags
+  mission_control-jobs (~> 0.3.1)
   newrelic_rpm
   pagy (~> 8.4)
   propshaft
