@@ -9,7 +9,8 @@ class HomeController < ApplicationController
   end
 
   def show
-    @photo = Photo.published.with_rich_text_description.with_attached_image.find_by!(ulid: params[:id])
+    photo_id_param = params[:id].starts_with?("01j") ? {ulid: params[:id]} : {permalink: params[:id]}
+    @photo = Photo.published.with_rich_text_description.with_attached_image.find_by!(photo_id_param)
     set_meta(@photo)
   end
 
