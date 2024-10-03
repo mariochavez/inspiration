@@ -9,7 +9,7 @@
 
 # Ignore all environment files.
 /.env*
-/.kamal/.env
+/.kamal/.env*
 
 # Ignore all logfiles and tempfiles.
 /log/*

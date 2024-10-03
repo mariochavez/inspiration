@@ -17,6 +17,9 @@ Rails.application.routes.draw do
     resources :photos, except: [:show, :destroy]
   end
 
+  scope "/admin" do
+    mount MissionControl::Jobs::Engine, at: "/jobs"
+  end
   get "/admin" => "admin/photos#index"
 
   resource :about, controller: :about, only: [:show]

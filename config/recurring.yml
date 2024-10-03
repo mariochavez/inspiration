@@ -1,14 +1,10 @@
-periodic_cleanup:
-  class: CleanSoftDeletedRecordsJob
-  queue: background
-  args: [1000, { batch_size: 500 }]
-  schedule: every hour
-periodic_command:
-  command: "SoftDeletedRecord.due.delete_all"
+periodic_clear_jobs:
+  command: "SolidQueue::Job.clear_finished_in_batches"
   priority: 2
   schedule: at 5am every day
 publish_photo:
   class: PublishPhotoJob
   queue: default
   args: []
-  schedule: "0 */2 9-17 * *"
+  schedule: every 15 minutes
+  priority: 1
