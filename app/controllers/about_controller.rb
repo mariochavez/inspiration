@@ -1,4 +1,6 @@
 class AboutController < ApplicationController
+  allow_unauthenticated_access
+
   include JsonLdGenerator
   include MetaTagsGenerator
 
