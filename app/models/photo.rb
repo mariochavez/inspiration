@@ -1,4 +1,8 @@
 class Photo < ApplicationRecord
+  include PermalinkGenerator
+
+  before_validation :generate_permalink, on: :create, if: -> { author.present? && project.present? }
+
   has_rich_text :description
 
   has_one_attached :image do |attachable|
@@ -6,7 +10,7 @@ class Photo < ApplicationRecord
     attachable.variant :thumb, resize_to_limit: [48, 48]
   end
 
-  validates :author, :image, presence: true
+  validates :author, :image, :permalink, presence: true
 
   scope :published, -> { where.not(published_at: nil) }
   scope :unpublished, -> { where(published_at: nil) }
@@ -21,7 +25,7 @@ class Photo < ApplicationRecord
   end
 
   def to_param
-    ulid
+    permalink
   end
 
   def meta_description

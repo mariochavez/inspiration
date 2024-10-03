@@ -22,6 +22,6 @@ Rails.application.routes.draw do
   resource :about, controller: :about, only: [:show]
 
   # Defines the root path route ("/")
-  get "/:id" => "home#show", :constraints => {id: /[a-zA-Z0-9_-]{26}/}, :as => :photo
+  get "/:id" => "home#show", :constraints => {id: /[a-z0-9-]+/}, :as => :photo
   root "home#index"
 end

@@ -1,4 +1,4 @@
-<% require "dotenv"; Dotenv.load(".env") %>
+<% require "dotenv"; Dotenv.load(".kamal/.env") %>
 
 # Name of your application. Used to uniquely configure containers.
 service: inspiration
