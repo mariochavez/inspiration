@@ -20,7 +20,9 @@
 </header>
 
 <section class="bg-white max-w-4xl mx-auto mt-8">
-  <%= image_tag @photo.image.variant(:page), alt: @photo.author, class: "w-[900px] h-auto sm:max-h-[700px] sm: w-auto mx-auto", style: "sview-transition-name: #{dom_id(@photo)}" %>
+  <%- dimensions = scaled_dimensions(@photo.image.metadata[:width], @photo.image.metadata[:height], 900) -%>
+  <%= image_tag @photo.image.variant(:page), alt: @photo.author, class: "w-[900px] h-auto sm:max-h-[700px] sm: w-auto mx-auto", 
+    style: "sview-transition-name: #{dom_id(@photo)}", width: dimensions[:width], height: dimensions[:height] %>
   <div class="px-2 py-4 mb-6">
     <h2 class="text-base font-bold"><%= @photo.author %></h2>
     <% if @photo.project.present? %>
