@@ -1,9 +1,11 @@
 <%# locals: (photo:, index:) -%>
 
 <%= link_to photo_path(photo), id: dom_id(photo) do %>
+  <%- dimensions = scaled_dimensions(photo.image.metadata[:width], photo.image.metadata[:height], 900) -%>
   <%= image_tag photo.image.variant(:page), alt: photo.author, 
-    loading: index >= 9 ? 'lazy' : '', style: "sview-transition-name: #{dom_id(photo)}", 
-    class: "w-[900px] h-auto sm:max-h-[900px] sm:max-w-full"  %>
+    loading: index >= 3 ? 'lazy' : '', style: "sview-transition-name: #{dom_id(photo)}", 
+    class: "w-[900px] h-auto sm:max-h-[900px] sm:max-w-full", width: dimensions[:width],
+    height: dimensions[:height] %>
 <% end %>
 <div class="p-2">
   <h2 class="text-base font-bold"><%= photo.author %></h2>

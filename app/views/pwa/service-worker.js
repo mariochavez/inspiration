@@ -24,12 +24,12 @@
 //     })
 //   )
 // })
-const CACHE_VERSION = 'v1';
-const CACHE_NAME = `heroimage-${CACHE_VERSION}`;
-const OFFLINE_PAGE = '/offline.html';
+const cache_version = 'v1';
+const cache_name = `heroimage-${cache_version}`;
+const offline_page = '/offline.html';
 
-// Resources to precache
-const PRECACHE_RESOURCES = [
+// resources to precache
+const precache_resources = [
   '/',
   '/about',
   '/offline.html',
@@ -40,39 +40,39 @@ const PRECACHE_RESOURCES = [
   '/safari-pinned-tab.svg'
 ];
 
-// Regular expressions for dynamic asset filenames
-const ASSET_REGEX = {
-  CSS: /\/assets\/.*\.css$/,
-  JS: /\/assets\/.*\.js$/,
-  FONT: /\/assets\/.*\.(woff|woff2|eot|ttf|otf)$/,
-  IMAGE: /\/assets\/.*\.(png|jpg|jpeg|gif|svg)$/
+// regular expressions for dynamic asset filenames
+const asset_regex = {
+  css: /\/assets\/.*\.css$/,
+  js: /\/assets\/.*\.js$/,
+  font: /\/assets\/.*\.(woff|woff2|eot|ttf|otf)$/,
+  image: /\/assets\/.*\.(png|jpg|jpeg|gif|svg)$/
 };
 
-// Helper function to match request URL against regex patterns
-const matchAssetRegex = (url) => {
-  for (const [key, regex] of Object.entries(ASSET_REGEX)) {
+// helper function to match request url against regex patterns
+const matchassetregex = (url) => {
+  for (const [key, regex] of object.entries(asset_regex)) {
     if (regex.test(url)) return key;
   }
   return null;
 };
 
-// Install event
-self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then((cache) => cache.addAll(PRECACHE_RESOURCES))
-      .then(() => self.skipWaiting())
+// install event
+self.addeventlistener('install', (event) => {
+  event.waituntil(
+    caches.open(cache_name)
+      .then((cache) => cache.addall(precache_resources))
+      .then(() => self.skipwaiting())
   );
 });
 
-// Activate event
-self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cacheName) => {
-          if (cacheName.startsWith('heroimage-') && cacheName !== CACHE_NAME) {
-            return caches.delete(cacheName);
+// activate event
+self.addeventlistener('activate', (event) => {
+  event.waituntil(
+    caches.keys().then((cachenames) => {
+      return promise.all(
+        cachenames.map((cachename) => {
+          if (cachename.startswith('heroimage-') && cachename !== cache_name) {
+            return caches.delete(cachename);
           }
         })
       );
@@ -80,64 +80,64 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// Fetch event
-self.addEventListener('fetch', (event) => {
-  // Skip cross-origin requests
-  if (!event.request.url.startsWith(self.location.origin)) {
+// fetch event
+self.addeventlistener('fetch', (event) => {
+  // skip cross-origin requests
+  if (!event.request.url.startswith(self.location.origin)) {
     return;
   }
 
-  // Handle Turbo Drive requests
-  if (event.request.headers.get('Accept').includes('text/html-partial')) {
-    event.respondWith(
+  // handle turbo drive requests
+  if (event.request.headers.get('accept').includes('text/html-partial')) {
+    event.respondwith(
       fetch(event.request)
-        .catch(() => caches.match(OFFLINE_PAGE))
+        .catch(() => caches.match(offline_page))
     );
     return;
   }
 
-  // Network-first strategy for HTML requests, including the about page
+  // network-first strategy for html requests, including the about page
   if (event.request.mode === 'navigate' ||
-    (event.request.method === 'GET' && event.request.headers.get('accept').includes('text/html'))) {
-    event.respondWith(
+    (event.request.method === 'get' && event.request.headers.get('accept').includes('text/html'))) {
+    event.respondwith(
       fetch(event.request)
         .then(response => {
-          // Cache the about page after network request
-          if (event.request.url.endsWith('/about')) {
-            const responseClone = response.clone();
-            caches.open(CACHE_NAME).then(cache => {
-              cache.put(event.request, responseClone);
+          // cache the about page after network request
+          if (event.request.url.endswith('/about')) {
+            const responseclone = response.clone();
+            caches.open(cache_name).then(cache => {
+              cache.put(event.request, responseclone);
             });
           }
           return response;
         })
         .catch(() => {
           return caches.match(event.request)
-            .then(cachedResponse => {
-              return cachedResponse || caches.match(OFFLINE_PAGE);
+            .then(cachedresponse => {
+              return cachedresponse || caches.match(offline_page);
             });
         })
     );
   } else {
-    // Cache-first strategy for assets, falling back to network
-    const assetType = matchAssetRegex(event.request.url);
-    if (assetType) {
-      event.respondWith(
-        caches.open(CACHE_NAME).then((cache) =>
+    // cache-first strategy for assets, falling back to network
+    const assettype = matchassetregex(event.request.url);
+    if (assettype) {
+      event.respondwith(
+        caches.open(cache_name).then((cache) =>
           cache.match(event.request).then((response) => {
             if (response) {
               return response;
             }
-            return fetch(event.request).then((networkResponse) => {
-              cache.put(event.request, networkResponse.clone());
-              return networkResponse;
+            return fetch(event.request).then((networkresponse) => {
+              cache.put(event.request, networkresponse.clone());
+              return networkresponse;
             });
           })
         )
       );
     } else {
-      // For non-asset requests, use network-first strategy
-      event.respondWith(
+      // for non-asset requests, use network-first strategy
+      event.respondwith(
         fetch(event.request)
           .catch(() => caches.match(event.request))
       );
@@ -145,12 +145,12 @@ self.addEventListener('fetch', (event) => {
   }
 });
 
-// Sync event
-self.addEventListener('sync', (event) => {
-  if (event.tag === 'myBackgroundSync') {
-    event.waitUntil(
-      // Perform background sync operations here
-      console.log('Background sync executed')
+// sync event
+self.addeventlistener('sync', (event) => {
+  if (event.tag === 'mybackgroundsync') {
+    event.waituntil(
+      // perform background sync operations here
+      console.log('background sync executed')
     );
   }
 });
