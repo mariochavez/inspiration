@@ -24,7 +24,7 @@
 //     })
 //   )
 // })
-const cache_version = 'v1';
+const cache_version = 'v1.1';
 const cache_name = `heroimage-${cache_version}`;
 const offline_page = '/offline.html';
 
