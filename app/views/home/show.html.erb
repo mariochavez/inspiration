@@ -29,7 +29,7 @@
       <p class="text-gray-500"><%= @photo.project %></p>
       <%= link_to @photo.url, "#{@photo.url}?utm_source=#{request.host}", class: "text-gray-500 hover:text-gray-700", target: "_blank" %>
       <% if @photo.description.present? %>
-        <div class="mt-4 text-sm text-gray-700">
+        <div class="mt-4 text-sm text-gray-700" data-share>
           <%= @photo.description %>
         </div
       <% end %>
