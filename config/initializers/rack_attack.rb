@@ -1,7 +1,7 @@
 Rack::Attack.enabled = !Rails.env.test?
 
 # Throttle requests from a single IP to 5 requests per second
-Rack::Attack.throttle("req/ip", limit: 5, period: 1.second) do |req|
+Rack::Attack.throttle("req/ip", limit: 20, period: 1.second) do |req|
   req.ip
 end
 
