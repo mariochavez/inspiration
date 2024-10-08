@@ -144,6 +144,7 @@ GEM
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
     json (2.7.2)
+    jwt (2.7.1)
     kamal (2.1.0)
       activesupport (>= 7.0)
       base64 (~> 0.2)
@@ -216,6 +217,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.16.7-x86_64-linux)
       racc (~> 1.4)
+    openssl (3.2.0)
     ostruct (0.6.0)
     pagy (8.6.3)
     parallel (1.26.3)
@@ -377,6 +379,9 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
+    web-push (3.0.1)
+      jwt (~> 2.0)
+      openssl (~> 3.0)
     webrick (1.8.2)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
@@ -422,6 +427,7 @@ DEPENDENCIES
   rack-attack
   rails (~> 8.0.0.beta1)
   rails-i18n (~> 7.0)
+  rubocop (~> 1.65)
   solid_cable
   solid_queue
   sqlite3 (>= 2.1)
@@ -433,6 +439,7 @@ DEPENDENCIES
   turbo-rails
   tzinfo-data
   web-console
+  web-push
 
 BUNDLED WITH
    2.5.18

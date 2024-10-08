@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   get "service-worker" => "rails/pwa#service_worker", :as => :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", :as => :pwa_manifest
 
+  # Push subscriptions and notifications
+  resources :push_subscriptions, only: [:create]
+
   get "feed", to: "rss#index", format: "rss"
   get "sitemap", to: "sitemap#index", defaults: {format: "xml"}
 

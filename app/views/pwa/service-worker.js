@@ -1,29 +1,3 @@
-// Add a service worker for processing Web Push notifications:
-//
-// self.addEventListener("push", async (event) => {
-//   const { title, options } = await event.data.json()
-//   event.waitUntil(self.registration.showNotification(title, options))
-// })
-// 
-// self.addEventListener("notificationclick", function(event) {
-//   event.notification.close()
-//   event.waitUntil(
-//     clients.matchAll({ type: "window" }).then((clientList) => {
-//       for (let i = 0; i < clientList.length; i++) {
-//         let client = clientList[i]
-//         let clientPath = (new URL(client.url)).pathname
-// 
-//         if (clientPath == event.notification.data.path && "focus" in client) {
-//           return client.focus()
-//         }
-//       }
-// 
-//       if (clients.openWindow) {
-//         return clients.openWindow(event.notification.data.path)
-//       }
-//     })
-//   )
-// })
 const CACHE_VERSION = 'v1';
 const CACHE_NAME = `heroimage-${CACHE_VERSION}`;
 const OFFLINE_PAGE = `/offline.html?v=${CACHE_VERSION}`;
@@ -159,6 +133,42 @@ self.addEventListener('fetch', (event) => {
     }
   }
 });
+
+// Add a service worker for processing Web Push notifications:
+self.addEventListener("push", (event) => {
+  const data = event.data.json()
+  const options = {
+    body: data.body,
+    path: data.path,
+    actions: [
+      {
+        action: "/",
+        title: "View",
+      }
+    ]
+  }
+  event.waitUntil(self.registration.showNotification(data.title, options))
+})
+
+self.addEventListener("notificationclick", function (event) {
+  event.notification.close()
+  event.waitUntil(
+    clients.matchAll({ type: "window" }).then((clientList) => {
+      for (let i = 0; i < clientList.length; i++) {
+        let client = clientList[i]
+        let clientPath = (new URL(client.url)).pathname
+
+        if (clientPath == event.notification.path && "focus" in client) {
+          return client.focus()
+        }
+      }
+
+      if (clients.openWindow) {
+        return clients.openWindow(event.notification.path)
+      }
+    })
+  )
+})
 
 // sync event
 // self.addEventListener('sync', (event) => {

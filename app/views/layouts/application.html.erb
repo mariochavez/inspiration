@@ -10,6 +10,8 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <%= tag.meta name: 'vapid-public-key', content: Rails.application.credentials.vapid[:public_key] %>
+
     <%= yield :head %>
 
     <script async src="/es-module-shims.js" data-turbo-track="reload"></script>

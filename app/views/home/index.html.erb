@@ -11,6 +11,7 @@
     </div>
 
     <div class="hidden lg:flex lg:gap-x-12">
+      <%= button_to "Subscribe to Notifications", "#", data: { controller: "notifications", action: "notifications#subscribe", "notifications-target": "subscribeButton" }, id: "subscribe-button" %>
     </div>
 
     <div class="flex flex-1 justify-end">

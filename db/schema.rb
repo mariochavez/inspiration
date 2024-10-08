@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_10_03_025901) do
+ActiveRecord::Schema[8.0].define(version: 2024_10_06_201817) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -61,6 +61,15 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_03_025901) do
     t.index ["permalink"], name: "index_photos_on_permalink", unique: true
     t.index ["published_at"], name: "index_photos_on_published_at"
     t.index ["ulid"], name: "index_photos_on_ulid", unique: true
+  end
+
+  create_table "push_subscriptions", force: :cascade do |t|
+    t.string "endpoint", null: false
+    t.string "auth_key", null: false
+    t.string "p256dh_key", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["endpoint"], name: "index_push_subscriptions_on_endpoint", unique: true
   end
 
   create_table "users", force: :cascade do |t|
