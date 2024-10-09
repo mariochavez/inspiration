@@ -16,7 +16,7 @@
     <script async src="/es-module-shims.js" data-turbo-track="reload"></script>
 
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%= tag.link rel: "manifest", href: pwa_manifest_path(v: 1, format: :json) %>
+    <%= tag.link rel: "manifest", href: pwa_manifest_path(v: 2, format: :json) %>
 
     <%= auto_discovery_link_tag :rss, feed_url, title: t("name") %>
 
