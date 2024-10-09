@@ -20,3 +20,8 @@ es:
   back: Volver
   top: Arriba
   author: Mario Alberto Chávez
+
+  push_notifications:
+    title: New photo / Nueva fotografía
+    description: >
+      A photo has been published. Click here to view it. / Una fotografía ha sido publicada. Haz clic aquí para verla.

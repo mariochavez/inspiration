@@ -1,26 +1,37 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["subscribeButton", "unsubscribeButton"]
+  static targets = ["subscribeButton", "unsubscribeButton", "subscribeIcon", "unsubscribeIcon"]
+  static values = { subscribe: String, unsubscribe: String }
 
   connect() {
     if (!("Notification" in window)) {
       return
     }
 
-    this.updateButtonState()
+    this.updateButtonState(true)
   }
 
-  async updateButtonState() {
+  async updateButtonState(startup = false) {
     const registration = await navigator.serviceWorker.ready
     const subscription = await registration.pushManager.getSubscription()
 
     if (subscription) {
       this.subscribeButtonTarget.classList.add("hidden")
       this.unsubscribeButtonTarget.classList.remove("hidden")
+      if (!startup) this.unsubscribeIconTarget.classList.add("animate-ping")
     } else {
       this.subscribeButtonTarget.classList.remove("hidden")
       this.unsubscribeButtonTarget.classList.add("hidden")
+      if (!startup) this.subscribeIconTarget.classList.add("animate-ping")
+    }
+
+    if (!startup) {
+      const timeoutId = setTimeout(() => {
+        this.unsubscribeIconTarget.classList.remove("animate-ping")
+        this.subscribeIconTarget.classList.remove("animate-ping")
+        clearTimeout(timeoutId);
+      }, 1000)
     }
   }
 
@@ -59,7 +70,7 @@ export default class extends Controller {
   }
 
   async saveSubscription(subscription) {
-    const response = await fetch("/push_subscriptions", {
+    const response = await fetch(this.subscribeValue, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -74,7 +85,7 @@ export default class extends Controller {
   }
 
   async deleteSubscription(endpoint) {
-    const response = await fetch("/push_subscriptions", {
+    const response = await fetch(this.unsubscribeValue, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
