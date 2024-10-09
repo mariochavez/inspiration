@@ -45,7 +45,7 @@ gem "image_processing", "~> 1.2"
 
 gem "meta-tags"
 gem "mission_control-jobs", "~> 0.3.1"
-gem "pagy", "~> 8.4"
+gem "pagy", "~> 9.1"
 gem "rack-attack"
 gem "rails-i18n", "~> 7.0"
 gem "sqlpkg", "~> 0.2.3"
