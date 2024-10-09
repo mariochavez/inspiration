@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   get "manifest" => "rails/pwa#manifest", :as => :pwa_manifest
 
   # Push subscriptions and notifications
-  resources :push_subscriptions, only: [:create]
+  resources :push_subscriptions, only: [:create, :destroy]
 
   get "feed", to: "rss#index", format: "rss"
   get "sitemap", to: "sitemap#index", defaults: {format: "xml"}

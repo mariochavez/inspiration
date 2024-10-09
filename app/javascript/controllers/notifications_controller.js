@@ -1,29 +1,50 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["subscribeButton"]
+  static targets = ["subscribeButton", "unsubscribeButton"]
 
   connect() {
-    console.log("Notification controller connected")
     if (!("Notification" in window)) {
-      console.log("This browser does not support notifications.")
       return
     }
 
-    console.log("Notification permission: ", Notification.permission)
-    if (Notification.permission === "granted") {
-      this.setupPushManager()
+    this.updateButtonState()
+  }
+
+  async updateButtonState() {
+    const registration = await navigator.serviceWorker.ready
+    const subscription = await registration.pushManager.getSubscription()
+
+    if (subscription) {
+      this.subscribeButtonTarget.classList.add("hidden")
+      this.unsubscribeButtonTarget.classList.remove("hidden")
+    } else {
+      this.subscribeButtonTarget.classList.remove("hidden")
+      this.unsubscribeButtonTarget.classList.add("hidden")
     }
   }
 
-  subscribe(event) {
+  async subscribe(event) {
     event.preventDefault()
-    console.log("Subscribing to notifications")
-    Notification.requestPermission().then(permission => {
-      if (permission === "granted") {
-        this.setupPushManager()
-      }
-    })
+
+    const permission = await Notification.requestPermission()
+    if (permission === "granted") {
+      await this.setupPushManager()
+      this.updateButtonState()
+    }
+  }
+
+  async unsubscribe(event) {
+    event.preventDefault()
+
+    const registration = await navigator.serviceWorker.ready
+    const subscription = await registration.pushManager.getSubscription()
+
+    if (subscription) {
+      await subscription.unsubscribe()
+      await this.deleteSubscription(subscription.endpoint)
+      this.updateButtonState()
+    }
   }
 
   async setupPushManager() {
@@ -34,7 +55,7 @@ export default class extends Controller {
       applicationServerKey: this.urlBase64ToUint8Array(vapidPublicKey)
     })
 
-    this.saveSubscription(subscription)
+    await this.saveSubscription(subscription)
   }
 
   async saveSubscription(subscription) {
@@ -47,9 +68,23 @@ export default class extends Controller {
       body: JSON.stringify({ subscription: subscription.toJSON() })
     })
 
-    if (response.ok) {
-      this.subscribeButtonTarget.textContent = "Subscribed"
-      this.subscribeButtonTarget.disabled = true
+    if (!response.ok) {
+      throw new Error("Failed to save subscription")
+    }
+  }
+
+  async deleteSubscription(endpoint) {
+    const response = await fetch("/push_subscriptions", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content
+      },
+      body: JSON.stringify({ endpoint: endpoint })
+    })
+
+    if (!response.ok) {
+      throw new Error("Failed to save subscription")
     }
   }
 

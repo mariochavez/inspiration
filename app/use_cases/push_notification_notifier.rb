@@ -1,12 +1,16 @@
 class PushNotificationNotifier
-  def initialize(subscription, message)
+  include ActionView::Helpers::AssetUrlHelper
+
+  def initialize(subscription, title, body, path)
     @subscription = subscription
-    @message = message
+    @title = title
+    @body = body
+    @path = path
   end
 
   def notify
     WebPush.payload_send(
-      message: @message,
+      message: message,
       endpoint: @subscription.endpoint,
       p256dh: @subscription.p256dh_key,
       auth: @subscription.auth_key,
@@ -25,7 +29,17 @@ class PushNotificationNotifier
     Rails.logger.error "Response body: #{e.response.body}" if e.response
   end
 
-  def self.notify(subscription, message)
-    new(subscription, message).notify
+  def self.notify(subscription, title, body, path = "/")
+    new(subscription, title, body, path).notify
+  end
+
+  private
+
+  def message
+    JSON.generate(title: @title, options: {body: @body, icon: icon_path, data: {path: @path}})
+  end
+
+  def icon_path
+    asset_url(Rails.application.assets.resolver.resolve("icon-192x192.png"))
   end
 end
