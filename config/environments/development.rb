@@ -2,6 +2,7 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
+  HOST = "localhost:4700"
 
   # Make code changes take effect immediately without server restart.
   config.enable_reloading = true
@@ -29,6 +30,9 @@ Rails.application.configure do
   # Change to :null_store to avoid any caching.
   config.cache_store = :memory_store
 
+  # Enable serving of images, stylesheets, and JavaScripts from an asset server.
+  config.asset_host = HOST
+
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
 
@@ -39,7 +43,7 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
 
   # Set localhost to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = {host: "localhost", port: 4700}
+  config.action_mailer.default_url_options = {host: HOST}
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
@@ -72,7 +76,7 @@ Rails.application.configure do
   config.generators.apply_rubocop_autocorrect_after_generate!
 
   # Letter opener configuration
-  config.default_url_options = {host: "localhost:4700"}
+  config.default_url_options = {host: HOST}
   config.action_mailer.delivery_method = :letter_opener
   config.action_mailer.perform_deliveries = true
 

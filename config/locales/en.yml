@@ -1,6 +1,6 @@
 en:
   name: heroImage
-  title: "Inspirational Photography Collection :: heroImage"
+  title: "Inspirational Photography Collection"
   description: Explore a curated collection of inspirational photography, personally selected by documentary photographer Mario Alberto Chávez. Discover diverse photographic projects, their creators, and the stories behind the images.
   keywords: photography, inspiration, documentary photography, photo projects,visual storytelling
   about_1: >
@@ -20,3 +20,8 @@ en:
   back: Back
   top: Top
   author: Mario Alberto Chávez
+
+  push_notifications:
+    title: New photo / Nueva fotografía
+    description: >
+      A photo has been published. Click here to view it. / Una fotografía ha sido publicada. Haz clic aquí para verla.

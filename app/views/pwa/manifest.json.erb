@@ -1,29 +1,56 @@
 {
-  "name": "heroImage",
-  "short_name": "heroImage",
+  "name": "<%= I18n.t('name') %>",
+  "short_name": "<%= I18n.t('name') %>",
   "categories": ["photography"],
   "icons": [
     {
-        "src": "/android-chrome-192x192.png",
+        "src": "<%= image_path('icon-180x180.png') %>",
+        "sizes": "180x180",
+        "type": "image/png"
+    },
+    {
+        "src": "<%= image_path('icon-192x192.png') %>",
         "sizes": "192x192",
-        "type": "image/png"
+        "type": "image/png",
+        "purpose": "any"
     },
     {
-        "src": "/android-chrome-512x512.png",
-        "sizes": "512x512",
-        "type": "image/png"
-    },
-    {
-      "src": "/android-chrome-512x512.png",
+      "src": "<%= image_path('icon-512x512.png') %>",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "maskable"
     }
   ],
+  "screenshots": [
+    {
+      "src": "<%= image_path('desktop-home.jpg') %>",
+      "sizes": "2814x1974",
+      "type": "image/jpeg",
+      "label": "Desktop home"
+    },
+    {
+      "src": "<%= image_path('desktop-detail.jpg') %>",
+      "sizes": "2814x1974",
+      "type": "image/jpeg",
+      "label": "Desktop detail"
+    },
+    {
+      "src": "<%= image_path('mobile-home.jpg') %>",
+      "sizes": "727x1512",
+      "type": "image/jpeg",
+      "label": "Mobile home"
+    },
+    {
+      "src": "<%= image_path('mobile-detail.jpg') %>",
+      "sizes": "727x1512",
+      "type": "image/jpeg",
+      "label": "Mobile detail"
+    }
+  ],
   "start_url": "/",
   "display": "standalone",
   "scope": "/",
-  "description": "Curated photography collection",
+  "description": "<%= I18n.t('description') %>",
   "theme_color": "#ffffff",
   "background_color": "#ffffff",
   "orientation": "portrait",

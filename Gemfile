@@ -49,6 +49,7 @@ gem "pagy", "~> 8.4"
 gem "rack-attack"
 gem "rails-i18n", "~> 7.0"
 gem "sqlpkg", "~> 0.2.3"
+gem "web-push"
 
 group :production do
   # gem "aws-sdk-s3", require: false
@@ -64,6 +65,7 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "standard", require: false
+  gem "rubocop", "~> 1.65", require: false
 
   gem "bundle-audit"
   gem "letter_opener"

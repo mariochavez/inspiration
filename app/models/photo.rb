@@ -2,6 +2,7 @@ class Photo < ApplicationRecord
   include PermalinkGenerator
 
   before_validation :generate_permalink, on: :create, if: -> { author.present? && project.present? }
+  after_update_commit :notify_published, if: -> { published? }
 
   has_rich_text :description
 
@@ -30,5 +31,10 @@ class Photo < ApplicationRecord
 
   def meta_description
     "#{author} :: #{project}. #{description.to_plain_text.truncate(130)}".strip
+  end
+
+  def notify_published
+    Rails.logger.info("Notify published")
+    NotifyPublishedJob.perform_later
   end
 end

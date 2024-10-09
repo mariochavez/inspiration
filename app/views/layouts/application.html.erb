@@ -3,26 +3,27 @@
   <head>
     <%= display_meta_tags %>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="view-transition" content="same-origin"/>
 
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <%= tag.meta name: 'vapid-public-key', content: Rails.application.credentials.vapid[:public_key] %>
+
     <%= yield :head %>
 
     <script async src="/es-module-shims.js" data-turbo-track="reload"></script>
 
     <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%= tag.link rel: "manifest", href: pwa_manifest_path(v: 1, format: :json) %>
+    <%= tag.link rel: "manifest", href: pwa_manifest_path(v: 2, format: :json) %>
 
     <%= auto_discovery_link_tag :rss, feed_url, title: t("name") %>
 
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <%= tag.link rel: "icon", href: image_path("icon.svg"), type: "image/svg+xml" %>
+    <%= tag.link rel: "apple-touch-icon", sizes: "180x180", href: image_path("icon-180x180.png") %>
+    <%= tag.link rel: "icon", type: "image/png", sizes: "32x32", href: image_path("icon-32x32.png") %>
+    <%= tag.link rel: "icon", type: "image/png", sizes: "16x16", href: image_path("icon-16x16.png") %>
     <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="msapplication-TileColor" content="#da532c">
     <meta name="theme-color" content="#ffffff">

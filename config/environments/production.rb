@@ -2,6 +2,7 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
+  host = ENV.fetch("HOST", "https://heroimage.co")
 
   # Code is not reloaded between requests.
   config.enable_reloading = false
@@ -19,7 +20,7 @@ Rails.application.configure do
   config.public_file_server.headers = {"cache-control" => "public, max-age=#{1.year.to_i}"}
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
-  # config.asset_host = "http://assets.example.com"
+  config.asset_host = host
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
@@ -58,7 +59,7 @@ Rails.application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   # Set host to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = {host: ENV.fetch("HOST")}
+  config.action_mailer.default_url_options = {host: host}
 
   # Specify outgoing SMTP server. Remember to add smtp/* credentials via rails credentials:edit.
   # config.action_mailer.smtp_settings = {
@@ -89,5 +90,5 @@ Rails.application.configure do
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
   # Update this value with real domain name
-  config.default_url_options = {host: ENV.fetch("HOST")}
+  config.default_url_options = {host: host}
 end

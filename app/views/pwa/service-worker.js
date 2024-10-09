@@ -1,44 +1,20 @@
-// Add a service worker for processing Web Push notifications:
-//
-// self.addEventListener("push", async (event) => {
-//   const { title, options } = await event.data.json()
-//   event.waitUntil(self.registration.showNotification(title, options))
-// })
-// 
-// self.addEventListener("notificationclick", function(event) {
-//   event.notification.close()
-//   event.waitUntil(
-//     clients.matchAll({ type: "window" }).then((clientList) => {
-//       for (let i = 0; i < clientList.length; i++) {
-//         let client = clientList[i]
-//         let clientPath = (new URL(client.url)).pathname
-// 
-//         if (clientPath == event.notification.data.path && "focus" in client) {
-//           return client.focus()
-//         }
-//       }
-// 
-//       if (clients.openWindow) {
-//         return clients.openWindow(event.notification.data.path)
-//       }
-//     })
-//   )
-// })
 const CACHE_VERSION = 'v1';
 const CACHE_NAME = `heroimage-${CACHE_VERSION}`;
 const OFFLINE_PAGE = `/offline.html?v=${CACHE_VERSION}`;
+const NOT_FOUND_PAGE = `/404.html?v=${CACHE_VERSION}`;
 
 // resources to precache
 const PRECACHE_RESOURCES = [
   '/',
   '/about',
   '/offline.html',
+  '/404.html',
   '/icon.svg',
-  '/android-chrome-192x192.png',
-  '/android-chrome-512x512.png',
+  '/icon-192x192.png',
+  '/icon-512x512.png',
   '/safari-pinned-tab.svg',
-  '/favicon-16x16.png',
-  '/favicon-32x32.png'
+  '/icon-16x16.png',
+  '/icon-32x32.png'
 ];
 
 // Regular expressions for dynamic asset filenames
@@ -103,8 +79,18 @@ self.addEventListener('fetch', (event) => {
   if (event.request.mode === 'navigate' ||
     (event.request.method === 'get' && event.request.headers.get('accept').includes('text/html'))) {
     event.respondWith(
-      fetch(event.request)
+      fetch(event.request, { redirect: 'follow' })
         .then(response => {
+          // If the request results in a 404, redirect to /404.html
+          if (response.status === 404) {
+            return caches.match(NOT_FOUND_PAGE);
+          }
+
+          // Handle 302 redirects by returning the response directly
+          if (response.status === 302) {
+            return response;
+          }
+
           // Ensure a valid response is returned
           if (!response || response.status !== 200 || response.type !== 'basic') {
             return caches.match(OFFLINE_PAGE);
@@ -119,11 +105,10 @@ self.addEventListener('fetch', (event) => {
           }
           return response;
         })
-        .catch(() => {
+        .catch(async () => {
           // Ensure a valid response is returned from the cache or fallback to offline page
-          return caches.match(event.request).then(cachedResponse => {
-            return cachedResponse || caches.match(OFFLINE_PAGE);
-          });
+          const cachedResponse = await caches.match(event.request);
+          return cachedResponse || caches.match(OFFLINE_PAGE);
         })
     );
     return;
@@ -159,6 +144,33 @@ self.addEventListener('fetch', (event) => {
     }
   }
 });
+
+// Add a service worker for processing Web Push notifications:
+self.addEventListener("push", (event) => {
+  const { title, options } = event.data.json();
+  event.waitUntil(self.registration.showNotification(title, options))
+})
+
+self.addEventListener("notificationclick", function (event) {
+  event.notification.close()
+  event.waitUntil(
+    clients.matchAll({ type: "window" }).then((clientList) => {
+      for (let i = 0; i < clientList.length; i++) {
+        let client = clientList[i]
+        let clientPath = (new URL(client.url)).pathname
+        const url = (event && event.notification && event.notification.data && event.notification.data.path) ? event.notification.data.path : "/";
+
+        if (clientPath == url && "focus" in client) {
+          return client.focus()
+        }
+      }
+
+      if (clients.openWindow) {
+        return clients.openWindow(url)
+      }
+    })
+  )
+})
 
 // sync event
 // self.addEventListener('sync', (event) => {
