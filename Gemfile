@@ -65,7 +65,8 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "standard", require: false
-  gem "rubocop", "~> 1.65", require: false
+  # gem "rubocop", "~> 1.65", require: false
+  gem "standard-rails", require: false
 
   gem "bundle-audit"
   gem "letter_opener"
