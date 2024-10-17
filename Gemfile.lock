@@ -433,6 +433,7 @@ DEPENDENCIES
   rack-attack
   rails (~> 8.0.0.beta1)
   rails-i18n (~> 7.0)
+  rubocop (~> 1.65)
   solid_cable
   solid_queue
   sqlite3 (>= 2.1)
