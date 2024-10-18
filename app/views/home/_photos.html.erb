@@ -23,5 +23,5 @@
 <% end %>
 
 <% if pagy.next.present? %>
-  <%= turbo_frame_tag src: root_path(page: pagy.next, format: :turbo_stream), loading: :lazy, id: "next-#{pagy.page}" %>
+  <%= turbo_frame_tag "next-#{pagy.page}", src: root_path(page: pagy.next, format: :turbo_stream), loading: :lazy %>
 <% end %>
