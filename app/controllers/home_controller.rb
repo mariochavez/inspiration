@@ -4,7 +4,7 @@ class HomeController < ApplicationController
   include MetaTagsGenerator
 
   def index
-    @pagy, @photos = pagy(Photo.published.with_attached_image.order(published_at: :desc), items: 4)
+    @pagy, @photos = pagy(Photo.published.with_attached_image.order(published_at: :desc))
     set_meta
 
     respond_to do |format|
