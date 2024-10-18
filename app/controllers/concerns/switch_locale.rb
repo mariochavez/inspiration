@@ -5,11 +5,24 @@ module SwitchLocale
     around_action :switch_locale
   end
 
+  def default_url_options
+    lang_from_query? ? {locale: params[:lang]} : {}
+  end
+
   private
 
   def switch_locale(&action)
-    locale = extract_locale_from_accept_language_header
+    locale = if lang_from_query?
+      params[:lang]
+    else
+      extract_locale_from_accept_language_header
+    end
+
     I18n.with_locale(locale, &action)
+  end
+
+  def lang_from_query?
+    params[:lang].present? && ["en", "es"].include?(params[:lang].to_s)
   end
 
   def extract_locale_from_accept_language_header

@@ -69,9 +69,9 @@ self.addEventListener('fetch', (event) => {
     fetch(event.request).catch(() => {
       if (event.request.mode === 'navigate') {
         if (event.request.url.endsWith('/about')) {
-          return caches.match('/about');
+          return caches.match(`/about?v=${CACHE_VERSION}`);
         }
-        return caches.match(OFFLINE_PAGE);
+        return caches.match(`${OFFLINE_PAGE}?v=${CACHE_VERSION}`);
       }
       return caches.match(event.request);
     })
