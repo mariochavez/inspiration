@@ -41,27 +41,8 @@
   </nav>
 </header>
 
-<section class="bg-white sm:max-w-4xl mx-auto mt-8" id="top">
-  <div class="grid grid-cols-1 md:grid-cols-6 gap-32">
-    <%- left = Date.today.day % 2 == 0 -%>
-    <% @photos.each_with_index do |photo, index| %>
-      <%- portrait = photo.image.metadata[:width] < photo.image.metadata[:height] -%>
-      <% if portrait & left %>
-        <div class="col-span-1 md:col-span-4">
-          <%= render partial: 'photo', locals: { photo: photo, index: index } %>
-        </div>
-        <div class="hidden md:block">
-        </div>
-      <% elsif portrait & !left %>
-        <div class="hidden md:block">
-        </div>
-        <div class="col-span-1 md:col-span-4">
-          <%= render partial: 'photo', locals: { photo: photo, index: index } %>
-        </div>
-      <% else %>
-        <div class="col-span-1 md:col-span-6">
-          <%= render partial: 'photo', locals: { photo: photo, index: index } %>
-        </div>
-      <% end %>
-    <% end %>
+<section class="bg-white sm:max-w-4xl mx-auto mt-8 mb-12" id="top">
+  <div class="grid grid-cols-1 md:grid-cols-6 gap-32" id="photos">
+    <%= render partial: 'photos', locals: { photos: @photos, pagy: @pagy } %>
+  </div>
 </section>

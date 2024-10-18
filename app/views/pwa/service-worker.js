@@ -61,89 +61,106 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  // skip cross-origin requests
   if (!event.request.url.startsWith(self.location.origin)) {
     return;
   }
 
-  // handle turbo drive requests
-  if (event.request.headers.get('accept').includes('text/html-partial')) {
-    event.respondWith(
-      fetch(event.request)
-        .catch(() => caches.match(OFFLINE_PAGE))
-    );
-    return;
-  }
-
-  // network-first strategy for html requests, including the about page
-  if (event.request.mode === 'navigate' ||
-    (event.request.method === 'get' && event.request.headers.get('accept').includes('text/html'))) {
-    event.respondWith(
-      fetch(event.request, { redirect: 'follow' })
-        .then(response => {
-          // If the request results in a 404, redirect to /404.html
-          if (response.status === 404) {
-            return caches.match(NOT_FOUND_PAGE);
-          }
-
-          // Handle 302 redirects by returning the response directly
-          if (response.status === 302) {
-            return response;
-          }
-
-          // Ensure a valid response is returned
-          if (!response || response.status !== 200 || response.type !== 'basic') {
-            return caches.match(OFFLINE_PAGE);
-          }
-
-          // cache the about page after network request
-          if (event.request.url.endsWith('/about')) {
-            const responseClone = response.clone();
-            caches.open(CACHE_NAME).then(cache => {
-              cache.put(event.request, responseClone);
-            });
-          }
-          return response;
-        })
-        .catch(async () => {
-          // Ensure a valid response is returned from the cache or fallback to offline page
-          const cachedResponse = await caches.match(event.request);
-          return cachedResponse || caches.match(OFFLINE_PAGE);
-        })
-    );
-    return;
-  } else {
-    // cache-first strategy for assets, falling back to network
-    const assetType = matchAssetRegex(event.request.url);
-    if (assetType) {
-      event.respondWith(
-        caches.open(CACHE_NAME).then((cache) =>
-          cache.match(event.request).then((response) => {
-            if (response) {
-              return response;
-            }
-            return fetch(event.request).then((networkResponse) => {
-              // Ensure a valid response is returned
-              if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
-                return caches.match(OFFLINE_PAGE);
-              }
-              cache.put(event.request, networkResponse.clone());
-              return networkResponse;
-            }).catch(() => caches.match(OFFLINE_PAGE)); // In case of network failure, return offline page
-          })
-        )
-      );
-    } else {
-      // for non-asset requests, use network-first strategy
-      event.respondWith(
-        fetch(event.request)
-          .catch(() => caches.match(event.request).then(cachedResponse => {
-            return cachedResponse || caches.match(OFFLINE_PAGE); // Fallback to offline page
-          }))
-      );
-    }
-  }
+  event.respondWith(
+    fetch(event.request).catch(() => {
+      if (event.request.mode === 'navigate') {
+        if (event.request.url.endsWith('/about')) {
+          return caches.match('/about');
+        }
+        return caches.match(OFFLINE_PAGE);
+      }
+      return caches.match(event.request);
+    })
+  );
 });
+
+// self.addEventListener('fetch', (event) => {
+//   // skip cross-origin requests
+//   if (!event.request.url.startsWith(self.location.origin)) {
+//     return;
+//   }
+//
+//   // handle turbo drive requests
+//   if (event.request.headers.get('accept').includes('text/html-partial')) {
+//     event.respondWith(
+//       fetch(event.request)
+//         .catch(() => caches.match(OFFLINE_PAGE))
+//     );
+//     return;
+//   }
+// network-first strategy for html requests, including the about page
+//   if (event.request.mode === 'navigate' ||
+//     (event.request.method === 'get' && event.request.headers.get('accept').includes('text/html'))) {
+//     event.respondWith(
+//       fetch(event.request, { redirect: 'follow' })
+//         .then(response => {
+//           // If the request results in a 404, redirect to /404.html
+//           if (response.status === 404) {
+//             return caches.match(NOT_FOUND_PAGE);
+//           }
+//
+//           // Handle 302 redirects by returning the response directly
+//           if (response.status === 302) {
+//             return response;
+//           }
+//
+//           // Ensure a valid response is returned
+//           if (!response || response.status !== 200 || response.type !== 'basic') {
+//             return caches.match(OFFLINE_PAGE);
+//           }
+//
+//           // cache the about page after network request
+//           if (event.request.url.endsWith('/about')) {
+//             const responseClone = response.clone();
+//             caches.open(CACHE_NAME).then(cache => {
+//               cache.put(event.request, responseClone);
+//             });
+//           }
+//           return response;
+//         })
+//         .catch(async () => {
+//           // Ensure a valid response is returned from the cache or fallback to offline page
+//           const cachedResponse = await caches.match(event.request);
+//           return cachedResponse || caches.match(OFFLINE_PAGE);
+//         })
+//     );
+//     return;
+//   } else {
+//     // cache-first strategy for assets, falling back to network
+//     const assetType = matchAssetRegex(event.request.url);
+//     if (assetType) {
+//       event.respondWith(
+//         caches.open(CACHE_NAME).then((cache) =>
+//           cache.match(event.request).then((response) => {
+//             if (response) {
+//               return response;
+//             }
+//             return fetch(event.request).then((networkResponse) => {
+//               // Ensure a valid response is returned
+//               if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
+//                 return caches.match(OFFLINE_PAGE);
+//               }
+//               cache.put(event.request, networkResponse.clone());
+//               return networkResponse;
+//             }).catch(() => caches.match(OFFLINE_PAGE)); // In case of network failure, return offline page
+//           })
+//         )
+//       );
+//     } else {
+//       // for non-asset requests, use network-first strategy
+//       event.respondWith(
+//         fetch(event.request)
+//           .catch(() => caches.match(event.request).then(cachedResponse => {
+//             return cachedResponse || caches.match(OFFLINE_PAGE); // Fallback to offline page
+//           }))
+//       );
+//     }
+//   }
+// });
 
 // Add a service worker for processing Web Push notifications:
 self.addEventListener("push", (event) => {

@@ -25,3 +25,8 @@ en:
     title: New photo / Nueva fotografía
     description: >
       A photo has been published. Click here to view it. / Una fotografía ha sido publicada. Haz clic aquí para verla.
+
+  pagination:
+    previous: Previous
+    next: Next
+    truncate: ...

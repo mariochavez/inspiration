@@ -4,8 +4,8 @@ format: progress # default: Standard::Formatter
 ruby_version: 3.3.5 # default: RUBY_VERSION
 default_ignores: false # default: true
 
-plugins: # default: []
-  - standard-rails
+# plugins: # default: []
+#   - standard-rails
 
 ignore: # default: []
   - "node_modules/**/*"
