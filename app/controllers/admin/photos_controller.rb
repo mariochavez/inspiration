@@ -3,7 +3,7 @@ module Admin
     before_action :authenticate_user!
 
     def index
-      @pagy, @photos = pagy(Photo.with_attached_image.includes(image_attachment: :blob).order(created_at: :desc))
+      @pagy, @photos = pagy(Photo.with_attached_image.includes(image_attachment: :blob).order(created_at: :desc), items: 8)
     end
 
     def new
@@ -23,11 +23,11 @@ module Admin
     end
 
     def edit
-      @photo = Photo.find_by!(ulid: params[:id])
+      @photo = Photo.find_by!(permalink: params[:id])
     end
 
     def update
-      @photo = Photo.find_by!(ulid: params[:id])
+      @photo = Photo.find_by!(permalink: params[:id])
 
       if @photo.update(secure_params)
         flash.notice = t("flash.photos.update.notice")

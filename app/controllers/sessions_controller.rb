@@ -1,6 +1,6 @@
 class SessionsController < ApplicationController
   allow_unauthenticated_access
-  rate_limit to: 4, within: 1.minute
+  rate_limit to: 5, within: 1.minute
 
   layout "security"
 

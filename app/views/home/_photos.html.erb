@@ -1,0 +1,27 @@
+<%# locals: (photos:, pagy:) -%>
+<%- left = Date.today.day % 2 == 0 -%>
+
+<% photos.each_with_index do |photo, index| %>
+  <%- portrait = photo.image.metadata[:width] < photo.image.metadata[:height] -%>
+  <% if portrait & left %>
+    <article class="col-span-1 md:col-span-4">
+      <%= render partial: 'photo', locals: { photo: photo, index: index } %>
+    </article>
+    <div class="hidden md:block">
+    </div>
+  <% elsif portrait & !left %>
+    <div class="hidden md:block">
+    </div>
+    <article class="col-span-1 md:col-span-4">
+      <%= render partial: 'photo', locals: { photo: photo, index: index } %>
+    </article>
+  <% else %>
+    <article class="col-span-1 md:col-span-6">
+      <%= render partial: 'photo', locals: { photo: photo, index: index } %>
+    </article>
+  <% end %>
+<% end %>
+
+<% if pagy.next.present? %>
+  <%= turbo_frame_tag src: root_path(page: pagy.next, format: :turbo_stream), loading: :lazy, id: "next-#{pagy.page}" %>
+<% end %>
