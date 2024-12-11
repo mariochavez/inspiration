@@ -44,7 +44,7 @@ gem "thruster", require: false
 gem "image_processing", "~> 1.2"
 
 gem "meta-tags"
-gem "mission_control-jobs", "~> 0.3.1"
+gem "mission_control-jobs", "~> 1.0.1"
 gem "pagy", "~> 8.4"
 gem "rack-attack"
 gem "rails-i18n", "~> 7.0"
