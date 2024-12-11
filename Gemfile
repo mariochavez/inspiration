@@ -47,7 +47,7 @@ gem "meta-tags"
 gem "mission_control-jobs", "~> 0.3.1"
 gem "pagy", "~> 8.4"
 gem "rack-attack"
-gem "rails-i18n", "~> 7.0"
+gem "rails-i18n", "~> 8.0"
 gem "sqlpkg", "~> 0.2.3"
 gem "web-push"
 
