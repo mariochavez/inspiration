@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 # Use main development branch of Rails
-gem "rails", "~> 8.0.0.beta1"
+gem "rails", "~> 8.0.0.rc2"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 # Use sqlite3 as the database for Active Record
@@ -35,7 +35,7 @@ gem "solid_cable"
 gem "bootsnap", require: false
 
 # Deploy this application anywhere as a Docker container [https://kamal-deploy.org]
-gem "kamal", ">= 2.0.0.rc2", require: false
+gem "kamal", require: false
 
 # Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
 gem "thruster", require: false
